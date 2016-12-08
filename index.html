@@ -136,10 +136,10 @@
                     startVidFunc();
                     startVid = 0;
                 }
-                if (commentID != lastCommentID && chooseMenu == 1) {
+                if (commentID != lastCommentID) {
                     lasstCommentID = commentID;
                     $(".comment").text(comment);
-                    
+                    if (chooseMenu == 1){
                     console.log("fire!");
                     switch(comment){
                             
@@ -158,7 +158,7 @@
                             
                             
                     }
-                    
+                    }
                 }
             });
         }
