@@ -204,7 +204,7 @@
             $startVid[0].play();
             $startVid.fadeIn();
             $startVid.on('ended', function () {
-                fadeOut();
+                $startVid.fadeOut();
                 startLikes = likes;
                 
                 $(".video-main").css("background-image", "url(NYMain.jpg)");
