@@ -1,24 +1,198 @@
 <html>
+
 <head>
     <style>
-        .video-main{
-            width:800px;
-            height:450px;
-            background-image:url(NYMain.jpg);
+        .video-main {
+            width: 800px;
+            height: 450px;
+            background-image: url(NYMain.jpg);
             background-size: cover;
+            position: relative;
         }
-        .hidden{
-            display:none;
+        
+        .hidden {
+            display: none;
+        }
+        
+        #msg {
+            position: absolute;
+            bottom: 0px;
+            left: 10px;
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+            line-height: 30px;
+            width: 90%;
+            padding: 20px;
+        }
+        
+        .options ul li {
+            width: 200px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            margin: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            display: inline-table;
+            font-size: 17px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 14px;
+        }
+        
+        li.heading {
+            width: 100%;
+        }
+        
+        .video-main .options {
+            bottom: 0px;
+            left: 0px;
+            position: absolute;
+            width: 100%;
+        }
+        
+        ul {
+            margin: 0 auto;
+            width: 600px;
         }
     </style>
-</head>
+    <script src="jquery-2.1.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet"> </head>
+
 <body>
-<div class="video-main">    
-    
- <video class="hidden" width="320" height="240">
-  <source src="test.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-</div>
+    <div class="video-main">
+        <video class="start" width="800" height="450">
+            <source class="source" src="start.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
+        <div id="msg"></div>
+        <div class="options hidden">
+            <div class="container">
+                <h2>What</h2>
+                <ul>
+                    <li>Who are you?</li>
+                    <li>What can you bring?</li>
+                    <li>Why do you want to come?</li>
+                    <li>Okay, lets go!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <button class="like">Like</button>
+    <div class="options hidden">
+        <button class="q1">1</button>
+        <button class="q2">2</button>
+        <button class="q3">3</button>
+        <button class="q4">4</button>
+    </div>
+    <script>
+        //Loads the FB API – pretty important.
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1159070910842652'
+                , xfbml: true
+                , version: 'v2.8'
+            });
+        };
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+        //Facebook Live – Interactive Vote Counter
+        //Tyler Hamilton 2016
+        var videoID = "990688977709656"; // VIDEO APP ID
+        var fields = "?fields=reactions.summary(total_count).limit(50){pic,type},comments.order(reverse_chronological).limit(1){message,from,id}"
+        var updateTime = 100; // Time to check new updates in ms
+        var accessToken = '1159070910842652|lFsx-mFARO5EcFJKwNNBqXiXwPE'; //YOUR  ACCESS TOKEN HERE
+        var comment;
+        var commentID;
+        var lastCommentID;
+        var startLikes = 0;
+        var likes = 0;
+        var startVid = 1;
+        var $next = $(".next");
+        var $startVid = $(".start");
+        var source = $("video.start .source");
+
+        function loadFB() {
+            //A different API request for each reaction to be read.
+            FB.api('/' + videoID + fields + '&access_token=' + accessToken, 'GET', {}, function (response) {
+                //Most Recent Comment
+                comment = response.comments.data[0].message;
+                commentID = response.comments.data[0].id;
+                likes = response.reactions.summary.total_count;
+                if (likes > startLikes && startVid == 1) {
+                    startVidFunc();
+                    startVid = 0;
+                }
+                if (commentID != lastCommentID) {
+                    comment = comment.toUpperCase();
+                    lasstCommentID = commentID;
+                    $(".comment").text(comment);
+                }
+            });
+        }
+        var loadReactions = loadFB;
+        setInterval(loadReactions, updateTime);
+
+        function startVidFunc() {
+            $startVid.find(source).attr("src", "start.mp4");
+            $startVid[0].load();
+            $startVid[0].play();
+            $startVid.fadeIn();
+            $startVid.on('ended', function () {
+                loadVid("buffer.mp4");
+            });
+        }
+
+        function loadVid(vidname) {
+            $startVid.find(source).attr("src", vidname);
+            $startVid[0].load();
+            $startVid[0].play();
+            $startVid.fadeIn();
+            $startVid.on('ended', function () {
+                $(".options").fadeIn();
+            });
+        }
+        $(".like").click(function () {
+            loadVid("q4.mp4");
+        });
+        $(".q3").click(function () {
+            loadVid("q3.mp4");
+        });
+        $(".q2").click(function () {
+            loadVid("q2.mp4");
+        });
+        $(".q1").click(function () {
+            loadVid("q1.mp4");
+        });
+        
+        var showText = function (target, message, index, interval) {
+            if (index < message.length) {
+                $(target).append(message[index++]);
+                setTimeout(function () {
+                    showText(target, message, index, interval);
+                }, interval);
+            }
+        }
+
+        function loadVid(vidname) {
+            $startVid.find(source).attr("src", vidname);
+            $(".options").fadeOut();
+            $startVid[0].load();
+            $startVid[0].play();
+            $startVid.fadeIn();
+            $startVid.on('ended', function () {
+                $(".options").fadeIn();
+            });
+        }
+    </script>
 </body>
+
 </html>
