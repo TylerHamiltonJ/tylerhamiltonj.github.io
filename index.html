@@ -190,7 +190,8 @@
             $startVid.find(source).attr("src", "go.mp4");
             $startVid[0].load();
             $startVid[0].play();
-            $startVid.on('ended', function () {
+            $startVid.on('ended', function () {                
+            $startVid[0].pause();
                 $(".video-main").css("background-image", "url(NYMain.jpg)");
                 $startVid.fadeOut();
                 setTimeout(function () {
