@@ -6,6 +6,7 @@
             width: 800px;
             height: 450px;
             background-image: url(NYMain.jpg);
+            background: #000;
             background-size: cover;
             position: relative;
         }
@@ -152,7 +153,7 @@
                             loadVid("q3.mp4"); 
                             break;    
                         case '4':  
-                            loadVid("go.mp4"); 
+                            endVid();
                             break;
                             
                             
@@ -174,7 +175,8 @@
             $startVid.fadeIn();
         }
         
-        function startVidFunc() {
+        function startVidFunc() {            
+                $(".video-main").css("background-image", "none");
             $startVid.find(source).attr("src", "start.mp4");
             $startVid[0].load();
             $startVid[0].play();
@@ -192,6 +194,20 @@
             $startVid.fadeIn();
             $startVid.on('ended', function () {
                 menu();
+            });
+        }
+        
+        function endVid(vidname) {    
+            $(".options").fadeOut();
+            $startVid.find(source).attr("src", "go.mp4");
+            $startVid[0].load();
+            $startVid[0].play();
+            $startVid.fadeIn();
+            $startVid.on('ended', function () {
+                fadeOut();
+                startLikes = likes;
+                
+                $(".video-main").css("background-image", "url(NYMain.jpg)");
             });
         }
         
