@@ -165,11 +165,10 @@
         var loadReactions = loadFB;
         setInterval(loadReactions, updateTime);
 
-
-
         function menu() {
             $(".options").fadeIn();            
             chooseMenu = 1;
+            console.log(chooseMenu);
             $startVid.find(source).attr("src", "menu.mp4");
             $startVid[0].load();
             $startVid[0].play();
