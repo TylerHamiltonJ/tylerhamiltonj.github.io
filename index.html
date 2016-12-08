@@ -5,8 +5,8 @@
         .video-main {
             width: 800px;
             height: 450px;
+            background: #000;            
             background-image: url(NYMain.jpg);
-            background: #000;
             background-size: cover;
             position: relative;
         }
@@ -56,6 +56,10 @@
             margin: 0 auto;
             width: 600px;
         }
+        h2{text-align: center;
+            width:auto;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.8);}
     </style>
     <script src="jquery-2.1.0.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet"> </head>
@@ -67,7 +71,7 @@
         <div id="msg"></div>
         <div class="options hidden">
             <div class="container">
-                <h2>What</h2>
+                <h2>COMMENT one of the numbers to pick a question.</h2>
                 <ul>
                     <li>1:
                         <br/>Who are you?</li>
@@ -81,6 +85,9 @@
             </div>
         </div>
     </div>
+    <button class="like">Like</button>
+    <button class="q3">q3</button>
+    <button class="q4">q4</button>
     <script>
         //Loads the FB API – pretty important.
         window.fbAsyncInit = function () {
@@ -153,11 +160,23 @@
                 }
             });
         }
+        
+        $(".like").click(function(){
+            startVidFunc();            
+        });
+        $(".q4").click(function(){
+            endVid();            
+        });
+        $(".q3").click(function(){
+            loadVid("q3.mp4");            
+        });
+        
         var loadReactions = loadFB;
         setInterval(loadReactions, updateTime);
 
         function menu() {
             $(".options").fadeIn();
+            console.log("menu");
             chooseMenu = 1;
             $startVid.find(source).attr("src", "menu.mp4");
             $startVid[0].load();
@@ -166,6 +185,7 @@
 
         function startVidFunc() {            
             $startVid.fadeIn();
+            console.log("start");
             $(".video-main").css("background-image", "none");
             $startVid.find(source).attr("src", "start.mp4");
             $startVid[0].load();
@@ -190,13 +210,17 @@
             $startVid.find(source).attr("src", "go.mp4");
             $startVid[0].load();
             $startVid[0].play();
-            $startVid.on('ended', function () {                
-            $startVid[0].pause();
+            $startVid.on('ended', function () {
+                //(e).preventDefault;
                 $(".video-main").css("background-image", "url(NYMain.jpg)");
                 $startVid.fadeOut();
+                $(".options").fadeOut();
+                comment = 'w';                
+                $startVid[0].load();
+                $startVid[0].play();
                 setTimeout(function () {
                 startVid = 1;
-                }, 2000);
+                }, 5000);
             });
         }
     </script>
