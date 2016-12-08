@@ -81,13 +81,6 @@
             </div>
         </div>
     </div>
-    <button class="like">Like</button>
-    <div class="options hidden">
-        <button class="q1">1</button>
-        <button class="q2">2</button>
-        <button class="q3">3</button>
-        <button class="q4">4</button>
-    </div>
     <script>
         //Loads the FB API – pretty important.
         window.fbAsyncInit = function () {
@@ -133,6 +126,7 @@
                 comment = response.comments.data[0].message;
                 commentID = response.comments.data[0].id;
                 likes = response.reactions.summary.total_count;
+                console.log(likes, startLikes);
                 if (likes > startLikes && startVid == 1) {
                     startVidFunc();
                     startVid = 0;
@@ -202,36 +196,12 @@
             $startVid.find(source).attr("src", "go.mp4");
             $startVid[0].load();
             $startVid[0].play();
-            $startVid.fadeIn();
-            $startVid.on('ended', function () {
+            $startVid.on('ended', function () {                
+            $startVid[0].pause();
                 $startVid.fadeOut();
-                startLikes = likes;
-                
+                startLikes = likes;                
                 $(".video-main").css("background-image", "url(NYMain.jpg)");
             });
-        }
-        
-        
-        $(".like").click(function () {
-            startVidFunc();
-        });
-        $(".q3").click(function () {
-            loadVid("q3.mp4");
-        });
-        $(".q2").click(function () {
-            loadVid("q2.mp4");
-        });
-        $(".q4").click(function () {
-            loadVid("q1.mp4");
-        });
-        
-        var showText = function (target, message, index, interval) {
-            if (index < message.length) {
-                $(target).append(message[index++]);
-                setTimeout(function () {
-                    showText(target, message, index, interval);
-                }, interval);
-            }
         }
     </script>
 </body>
