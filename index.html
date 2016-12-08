@@ -68,10 +68,14 @@
             <div class="container">
                 <h2>What</h2>
                 <ul>
-                    <li>Who are you?</li>
-                    <li>What can you bring?</li>
-                    <li>Why do you want to come?</li>
-                    <li>Okay, lets go!</li>
+                    <li>1:
+                        <br/>Who are you?</li>
+                    <li>2:
+                        <br/>What can you bring?</li>
+                    <li>3:
+                        <br/>Why do you want to come?</li>
+                    <li>4:
+                        <br/> Okay, lets go!</li>
                 </ul>
             </div>
         </div>
@@ -119,6 +123,7 @@
         var $next = $(".next");
         var $startVid = $(".start");
         var source = $("video.start .source");
+        var chooseMenu = 0;
 
         function loadFB() {
             //A different API request for each reaction to be read.
@@ -131,37 +136,70 @@
                     startVidFunc();
                     startVid = 0;
                 }
-                if (commentID != lastCommentID) {
-                    comment = comment.toUpperCase();
+                if (commentID != lastCommentID && chooseMenu == 1) {
                     lasstCommentID = commentID;
                     $(".comment").text(comment);
+                    
+                    
+                    switch(comment){
+                            
+                        case '1':  
+                            loadVid("q1.mp4"); 
+                            break;    
+                        case '2':  
+                            loadVid("q2.mp4"); 
+                            break;    
+                        case '3':  
+                            loadVid("q3.mp4"); 
+                            break;    
+                        case '4':  
+                            loadVid("go.mp4"); 
+                            break;
+                            
+                            
+                    }
+                    
                 }
             });
         }
         var loadReactions = loadFB;
         setInterval(loadReactions, updateTime);
 
+
+
+        function menu() {
+            $(".options").fadeIn();            
+            chooseMenu == 1;
+            $startVid.find(source).attr("src", "menu.mp4");
+            $startVid[0].load();
+            $startVid[0].play();
+            $startVid.fadeIn();
+        }
+        
         function startVidFunc() {
             $startVid.find(source).attr("src", "start.mp4");
             $startVid[0].load();
             $startVid[0].play();
             $startVid.fadeIn();
             $startVid.on('ended', function () {
-                loadVid("buffer.mp4");
+                menu();
             });
         }
-
+        
         function loadVid(vidname) {
+            $(".options").fadeOut();
             $startVid.find(source).attr("src", vidname);
             $startVid[0].load();
             $startVid[0].play();
             $startVid.fadeIn();
             $startVid.on('ended', function () {
-                $(".options").fadeIn();
+                menu();
             });
         }
+        
+        
         $(".like").click(function () {
-            loadVid("q4.mp4");
+            startVidFunc();
         });
         $(".q3").click(function () {
             loadVid("q3.mp4");
@@ -169,7 +207,7 @@
         $(".q2").click(function () {
             loadVid("q2.mp4");
         });
-        $(".q1").click(function () {
+        $(".q4").click(function () {
             loadVid("q1.mp4");
         });
         
@@ -180,17 +218,6 @@
                     showText(target, message, index, interval);
                 }, interval);
             }
-        }
-
-        function loadVid(vidname) {
-            $startVid.find(source).attr("src", vidname);
-            $(".options").fadeOut();
-            $startVid[0].load();
-            $startVid[0].play();
-            $startVid.fadeIn();
-            $startVid.on('ended', function () {
-                $(".options").fadeIn();
-            });
         }
     </script>
 </body>
