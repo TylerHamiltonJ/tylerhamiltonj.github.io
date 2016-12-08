@@ -139,8 +139,8 @@
                 if (commentID != lastCommentID) {
                 console.log(comment, chooseMenu);
                     lasstCommentID = commentID;
-                    if (chooseMenu == 1){
-                    console.log("fire!");
+                    if (chooseMenu == 1){        
+            chooseMenu == 0;
                     switch(comment){
                             
                         case '1':  
@@ -185,8 +185,7 @@
             });
         }
         
-        function loadVid(vidname) {            
-            chooseMenu == 0;
+        function loadVid(vidname) {    
             $(".options").fadeOut();
             $startVid.find(source).attr("src", vidname);
             $startVid[0].load();
