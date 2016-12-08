@@ -127,6 +127,7 @@
                 commentID = response.comments.data[0].id;
                 likes = response.reactions.summary.total_count;
                 console.log(likes, startLikes);
+                
                 if (likes > startLikes && startVid == 1) {
                     startVidFunc();
                     startVid = 0;
@@ -201,6 +202,7 @@
                 $startVid.fadeOut();
                 startLikes = likes;                
                 $(".video-main").css("background-image", "url(NYMain.jpg)");
+                startVid = 1;
             });
         }
     </script>
