@@ -140,7 +140,7 @@
                     lasstCommentID = commentID;
                     $(".comment").text(comment);
                     
-                    
+                    console.log("fire!");
                     switch(comment){
                             
                         case '1':  
@@ -192,6 +192,7 @@
             $startVid[0].load();
             $startVid[0].play();
             $startVid.fadeIn();
+            chooseMenu == 0;
             $startVid.on('ended', function () {
                 menu();
             });
