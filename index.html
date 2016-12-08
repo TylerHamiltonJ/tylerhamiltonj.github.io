@@ -167,7 +167,6 @@
             $startVid.find(source).attr("src", "menu.mp4");
             $startVid[0].load();
             $startVid[0].play();
-            $startVid.fadeIn();
         }
         
         function startVidFunc() {            
@@ -186,7 +185,6 @@
             $startVid.find(source).attr("src", vidname);
             $startVid[0].load();
             $startVid[0].play();
-            $startVid.fadeIn();
             $startVid.on('ended', function () {
                 menu();
             });
