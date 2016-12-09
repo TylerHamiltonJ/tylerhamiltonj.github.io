@@ -96,7 +96,8 @@
         //Loads the FB API – pretty important.
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '1337573356264806'
+                appId: '1337573356264806',
+                uid = response.authResponse && response.authResponse.userID || null;
                 , xfbml: true
                 , version: 'v2.8'
             });
