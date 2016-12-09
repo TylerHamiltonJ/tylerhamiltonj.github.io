@@ -135,9 +135,10 @@
                 comment = response.comments.data[0].message;
                 commentID = response.comments.data[0].id;
                 likes = response.reactions.summary.total_count;
+                
+                    console.log(likes);
                 if (likes > 0 && startVid == 1) {
                     startVid = 0;
-                    console.log(likes);
                     startVidFunc();
                 }
                 if (commentID != lastCommentID) {
