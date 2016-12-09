@@ -91,12 +91,12 @@
     <button class="q3">q3</button>
     <button class="q4">q4</button>
     <script>
-        console.log("working");
+        
         
         //Loads the FB API – pretty important.
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '1159070910842652'
+                appId: '1727087697554250'
                 , xfbml: true
                 , version: 'v2.8'
             });
@@ -164,9 +164,32 @@
                     }
                 }
             });
-        }        
+        }
+        
+        $(".like").click(function(){
+            startVidFunc();            
+        });
+        $(".q1").click(function(){
+            loadVid("q1.mp4");            
+        });
+        $(".q2").click(function(){
+            loadVid("q2.mp4");            
+        });
+        $(".q3").click(function(){
+            loadVid("q3.mp4");            
+        });
+        $(".q4").click(function(){
+            endVid();            
+        });
+        
         var loadReactions = loadFB;
+        
+        setTimeout(
+  function() 
+  {
         setInterval(loadReactions, updateTime);
+  }, 6000);
+        
 
         function menu() {
             $(".options").fadeIn();
