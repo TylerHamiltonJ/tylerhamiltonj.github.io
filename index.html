@@ -3,8 +3,8 @@
 <head>
     <style>
         .video-main {
-            width: 800px;
-            height: 450px;
+            width: 720px;
+            height: 576px;
             background: #000;            
             background-image: url(NYMain.jpg);
             background-size: cover;
@@ -211,16 +211,16 @@
             $startVid[0].load();
             $startVid[0].play();
             $startVid.on('ended', function () {
-                //(e).preventDefault;
-                $(".video-main").css("background-image", "url(NYMain.jpg)");
-                $startVid.fadeOut();
-                $(".options").fadeOut();
-                comment = 'w';                
-                $startVid[0].load();
-                $startVid[0].play();
-                setTimeout(function () {
-                startVid = 1;
-                }, 5000);
+                location.reload();
+//                $(".video-main").css("background-image", "url(NYMain.jpg)");
+//                $startVid.fadeOut();
+//                $(".options").fadeOut();
+//                comment = 'w';                
+//                $startVid[0].load();
+//                $startVid[0].play();
+//                setTimeout(function () {
+//                startVid = 1;
+//                }, 5000);
             });
         }
     </script>
