@@ -67,7 +67,7 @@
 <body>
     <div class="video-main">
         <video class="start hidden" width="720" height="576">
-            <source class="source" src="start.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
+            <source class="source" src="start2.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
         <div id="msg"></div>
         <div class="options hidden">
             <div class="container">
@@ -86,6 +86,8 @@
         </div>
     </div>
     <button class="like">Like</button>
+    <button class="q1">q1</button>
+    <button class="q2">q2</button>
     <button class="q3">q3</button>
     <button class="q4">q4</button>
     <script>
@@ -164,11 +166,17 @@
         $(".like").click(function(){
             startVidFunc();            
         });
-        $(".q4").click(function(){
-            endVid();            
+        $(".q1").click(function(){
+            loadVid("q1.mp4");            
+        });
+        $(".q2").click(function(){
+            loadVid("q2.mp4");            
         });
         $(".q3").click(function(){
             loadVid("q3.mp4");            
+        });
+        $(".q4").click(function(){
+            endVid();            
         });
         
         var loadReactions = loadFB;
@@ -187,7 +195,7 @@
             $startVid.fadeIn();
             console.log("start");
             $(".video-main").css("background-image", "none");
-            $startVid.find(source).attr("src", "start.mp4");
+            $startVid.find(source).attr("src", "start2.mp4");
             $startVid[0].load();
             $startVid[0].play();
             $startVid.on('ended', function () {
