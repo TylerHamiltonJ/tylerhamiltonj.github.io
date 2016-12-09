@@ -90,9 +90,7 @@
     <button class="q2">q2</button>
     <button class="q3">q3</button>
     <button class="q4">q4</button>
-    <script>
-        console.log("working");
-        
+    <script>        
         //Loads the FB API – pretty important.
         window.fbAsyncInit = function () {
             FB.init({
@@ -129,7 +127,8 @@
         var $startVid = $(".start");
         var source = $("video.start .source");
         var chooseMenu = 0;
-
+        
+        console.log("working2");
         function loadFB() {
             //A different API request for each reaction to be read.
             FB.api('/' + videoID + fields + '&access_token=' + accessToken, 'GET', {}, function (response) {
