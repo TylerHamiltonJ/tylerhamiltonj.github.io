@@ -128,13 +128,13 @@
         var source = $("video.start .source");
         var chooseMenu = 0;
         
-        console.log("working3");
-        
         function loadFB() {
-            
-        console.log("working4");
             //A different API request for each reaction to be read.
             FB.api('/' + videoID + fields + '&access_token=' + accessToken, 'GET', {}, function (response) {
+                
+                
+        console.log("working API");
+                
                 //Most Recent Comment
                 comment = response.comments.data[0].message;
                 commentID = response.comments.data[0].id;
